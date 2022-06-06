@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Quicksand:wght@700&display=swap">
+
+        <title>Page Title</title>
+
+     <link rel="stylesheet" href="style.css">
+      <script src="script.js"></script>
+
+    </head>
+
+    <body class="light"> 
+
+    <div id="sett" hiddn>
+
+    <label class="switch">
+
+  <input type="checkbox" style="-webkit-appearance: none;" onclick="mode()">
+
+  <span class="slider"></span>
+
+</label> 
+
+<div id="mode_div"></div> </div> </div>
+
+    <div id="main_form">
+
+        <div id="frm">
+
+            <label for="name_">Name</label>
+
+            <input id="name_" type="text"><br />
+
+            <label for="pass">Password</label>
+
+            <input id="pass" type="password"> <label class="material-icons" for="eye" id="el">visibility_off</label><input type="checkbox" id="eye" onclick="eye()"> <br>
+
+            <button id="nu" onclick="nu()">Sign up</button>
+
+            <button id="check">submit</button>
+
+            <button id="lgn" onclick="lgn()" hidden>log in</button>
+
+            <button id="ok" hidden>save</button>
+
+            </div>
+
+        </div>
+
+    <div id="wrapper"></div>
+
+    <div id="profile"></div>
+
+       <div id="i"><span class="material-icons icon" id="feed">feedback</span> <input class="materil-icons" id="inp" type="text" placeholder="Write here...">
+
+        <span class="material-icons icon" id="add" onclick="addd()">send</span> </div>
+
+        <div id="bdy"><span id="by" hidden>try adding something...</span></div>
+
+        <div id="footer"> <span>version 1.0.3</span><span>by ishushreyas</span> <span id="cpyrt">©2022</span></div>
+
+        <div id="feedback_form" hidden>
+
+        <div id="feed_form">
+
+        <span class="material-icons" id="feed_close">close</span>
+
+      <h4>  Your feedback is very important to me</h4> <br>
+
+       <label for="name">Please provide link for your sololearn profile or youtube or any other media so i can visit you (if you dont want just write #)</label><br>
+
+        <input type="email" placeholder="link here..." id="name">
+
+        <textarea id="feed_input" placeholder="Hello shreyas!! You should improve this..."></textarea>
+
+          <span class="material-icons icon" id="feed_send">send</span>
+
+      <a href="#cmt">More comments</a>
+
+        <aside id="suggestion" hidden>
+
+            <div class="sugg">Great job! this is amazing</div>
+
+            <div class="sugg">Wrost thing ever seen😂</div>
+
+        </aside>
+
+         </div> <div id="cmt">
+
+            <a href="#feed_form">back</a>
+
+            <div class="comment">
+
+                <h4>Tgold</h4>
+
+                <p>It's very pretty, but You should make it have advance features.<br> <span class="material-icons" style="color: red;">favorite</span>
+
+</p>
+
+            </div>
+
+        </div></div>
+
+        
+
+    </body>
+
+    <script type="module">
+
+  // Import the functions you need from the SDKs you need
+
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js";
+
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-analytics.js";
+
+  // TODO: Add SDKs for Firebase products that you want to use
+
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+  const firebaseConfig = {
+
+    apiKey: "AIzaSyDnRiLq8uIV3vMmc-e5oPpuOYW9qth9ZjU",
+
+    authDomain: "todo-live-8ee63.firebaseapp.com",
+
+    projectId: "todo-live-8ee63",
+
+    storageBucket: "todo-live-8ee63.appspot.com",
+
+    messagingSenderId: "341389748397",
+
+    appId: "1:341389748397:web:1110e11505ad49078a7e24",
+
+    measurementId: "G-63LMB8M8XN"
+
+  };
+
+  // Initialize Firebase
+
+  const app = initializeApp(firebaseConfig);
+
+  const analytics = getAnalytics(app);
+
+  
+
+  import{
+
+      getFirestore, doc, getDoc, setDoc, collection, addDoc, updateDoc, deleteDoc, deleteField
+
+  }
+
+  from "https://www.gstatic.com/firebasejs/9.8.1/firebase-firestore.js";
+
+  
+
+  const db = getFirestore();
+
+  
+
+  var add= document.getElementById("add");
+
+  var feed= document.getElementById("feed");
+
+  var feed_inp= document.getElementById("feed_input");
+
+  var feed_send= document.getElementById("feed_send");
+
+  var inp= document.getElementById("inp");
+
+  var name= document.getElementById("name");
+
+  var namee= document.getElementById("name_");
+
+  var check= document.getElementById("check");
+
+  var pass= document.getElementById("pass");
+
+  var m= document.getElementById("main_form");
+
+  var save= document.getElementById("ok");
+
+  var p= document.getElementById("profile");
+
+  var cmt= document.getElementById("cmt");
+
+  var pre;
+
+  var post;
+
+  var i;
+
+  var k=0;
+
+  var z;
+
+  var nn="";
+
+  var pp="";
+
+  var bl;
+
+  var link;
+
+  var time;
+
+  var date;
+
+  
+
+  async function AddDocument_AutoID(){
+
+    //  var ref = collection(db, "TodoList");
+
+     var ref = doc(db, "TodoList", namee.value + z);
+
+      const docRef = await setDoc(
+
+          ref, {
+
+              Item: inp.value,
+
+              Name: namee.value,
+
+              Time: h + " : " + min,
+
+              Date: today
+
+          }
+
+          )
+
+          .then(()=>{
+
+              //console.log(z);
+
+              AddDocument_CstmID();
+
+              alert("item added");
+
+              inp.value="";
+
+          })
+
+          .catch((error)=>{
+
+              alert("error: " + error);
+
+          })
+
+  }
+
+  
+
+  async function AddDocumentCustomID(){
+
+      var ref = doc(db, "Feedback", "feed" + i);
+
+      
+
+      const docRef = await setDoc(
+
+          ref, {
+
+             Name : namee.value,
+
+             Feedback : feed_inp.value,
+
+             Link : name.value,
+
+             Time: h + " : " + min,
+
+             Date: today,
+
+             Id: i,
+
+             Status: false
+
+          }
+
+          )
+
+          .then(()=>{
+
+              alert("Your opinion has been taken.\nI will start working on it soon\n \nthank you");
+
+    var dv= document.createElement("div");
+
+          cmt.appendChild(dv);
+
+          dv.setAttribute("class", "comment");
+
+          dv.setAttribute("id", "c" + i);
+
+          var h4= document.createElement("a");
+
+          document.getElementById("c" + i).appendChild(h4);
+
+          h4.setAttribute("id", "a" + i);
+
+          document.getElementById("a" + i).innerHTML= namee.value;
+
+          var par= document.createElement("p");
+
+          document.getElementById("c"+ i).appendChild(par);
+
+          par.setAttribute("id", "p" + i);
+
+          document.getElementById("p" + i).innerHTML= "Just now <br> > " + feed_inp.value;
+
+          var pr= document.createElement("span");
+
+          document.getElementById("c"+ i).appendChild(pr);
+
+          pr.setAttribute("id", "s" + i);
+
+          pr.setAttribute("class", "material-icons");
+
+          document.getElementById("s" + i).style.color="red";
+
+          document.getElementById("s" + i).innerHTML= "favorite_outline";
+
+          })
+
+          .catch((error)=>{
+
+              alert("error: " + error);
+
+          })
+
+          var ref = doc(db, "Index", "Index");
+
+      
+
+       await setDoc(
+
+          ref, {
+
+              Index: ++i
+
+          }
+
+          )
+
+          .then(()=>{
+
+              console.log("Saved successfully");
+
+          })
+
+          .catch((error)=>{
+
+              alert("error: " + error);
+
+          })
+
+  }
+
+  
+
+  async function GetADocument(){
+
+      var ref = doc(db, "People", namee.value);
+
+      
+
+      const docSnap = await getDoc(ref);
+
+    
+
+    if(docSnap.exists()){
+
+    let password = docSnap.data().Password;
+
+              // z = docSnap.data().Id;
+
+       // console.log(z);
+
+        if(pass.value == password){
+
+            m.hidden = true;
+
+            if(h < 12){
+
+                pre= "Good Morning, ";
+
+                post= " ☀️";
+
+            }
+
+            else if(h == 12){
+
+                pre= "Good Afternoon, ";
+
+                post=" 🔆";
+
+            }
+
+            else{
+
+                pre= "Good Evening, ";
+
+                post=" 🌇";
+
+            }
+
+            p.innerHTML= pre + namee.value + post;
+
+            
+
+            GetDocument();
+
+            
+
+            var ref = doc(db, "Index", "Index");
+
+      
+
+      const docSnp = await getDoc(ref);
+
+    
+
+    if(docSnp.exists()){
+
+        i = docSnp.data().Index;
+
+        for(var k= 0; k< i; k++){
+
+        var ref = doc(db, "Feedback", "feed" + k);
+
+      
+
+      const docSp = await getDoc(ref);
+
+    if(docSp.exists()){
+
+     nn = docSp.data().Name;
+
+     pp = docSp.data().Feedback;
+
+     bl = docSp.data().Status;
+
+     link = docSp.data().Link;
+
+     time= docSp.data().Time;
+
+     date = docSp.data().Date;
+
+     }
+
+else{
+
+    alert("no feedback found");
+
+}
+
+          var dv= document.createElement("div");
+
+          cmt.appendChild(dv);
+
+          dv.setAttribute("class", "comment");
+
+          dv.setAttribute("id", "c" + k);
+
+          var h4= document.createElement("a");
+
+          document.getElementById("c" + k).appendChild(h4);
+
+          h4.setAttribute("id", "a" + k);
+
+          document.getElementById("a" + k).innerHTML= nn;
+
+          document.getElementById("a" + k).href= link;
+
+          var par= document.createElement("p");
+
+          document.getElementById("c"+ k).appendChild(par);
+
+          par.setAttribute("id", "p" + k);
+
+          document.getElementById("p" + k).innerHTML= date + " > " + time + "<br> > " + pp;
+
+          var pr= document.createElement("span");
+
+          document.getElementById("c"+ k).appendChild(pr);
+
+          pr.setAttribute("id", "s" + k);
+
+          pr.setAttribute("class", "material-icons");
+
+          document.getElementById("s" + k).style.color= "red";
+
+          if(bl){
+
+              document.getElementById("s" + k).innerHTML= "favorite";
+
+          }
+
+          else{
+
+          document.getElementById("s" + k).innerHTML= "favorite_outline";
+
+          }
+
+        }
+
+    }
+
+    else{
+
+        alert("no index found")
+
+    }
+
+        }
+
+        else{
+
+            alert("wrong password");
+
+        }}
+
+        else{
+
+        alert("no user found")
+
+    }
+
+    
+
+  }
+
+    
+
+    
+
+  async function AddDocument_CustomID(){
+
+      var ref = doc(db, "People", namee.value);
+
+      
+
+       await setDoc(
+
+          ref, {
+
+              Name : namee.value,
+
+              Password : pass.value,
+
+              Time: h + " : " + min,
+
+              Date: today,
+
+          }
+
+          )
+
+          .then(()=>{
+
+              alert("Saved successfully");
+
+          AddDocument_CustmID();
+
+          })
+
+          .catch((error)=>{
+
+              alert("error: " + error);
+
+          })
+
+  }
+
+  
+
+  
+
+  async function AddDocument_CustmID(){
+
+      var ref = doc(db, "Index", namee.value + " index");
+
+      
+
+       await setDoc(
+
+          ref, {
+
+              Index : 0
+
+          }
+
+          )
+
+          .then(()=>{
+
+              //alert("You can log in now");
+
+          })
+
+          .catch((error)=>{
+
+              alert("error: " + error);
+
+          })
+
+          }
+
+          
+
+          async function AddDocument_CstmID(){
+
+      var ref = doc(db, "Index", namee.value + " index");
+
+      
+
+       await setDoc(
+
+          ref, {
+
+              Index : ++z
+
+          }
+
+          )
+
+          .then(()=>{
+
+              //alert("You can log in now");
+
+             // console.log(z);
+
+          })
+
+          .catch((error)=>{
+
+              alert("error: " + error);
+
+          })
+
+          }
+
+        async function GetDocument(){
+
+      var ref = doc(db, "Index", namee.value + " index");
+
+      
+
+      const docS = await getDoc(ref);
+
+    
+
+    if(docS.exists()){
+
+               z = docS.data().Index;
+
+        //console.log(z);
+
+        for(var l= 0; l< z; l++){
+
+      var ref = doc(db, "TodoList", namee.value + l);
+
+      
+
+      const dcSp = await getDoc(ref);
+
+    if(dcSp.exists()){
+
+            let todo = dcSp.data().Item;
+
+            
+
+            
+
+            
+
+            var list = document.querySelector('#bdy');
+
+list.addEventListener('click', function ul(ev) {
+
+  if (ev.target.tagName === 'LI') {
+
+    ev.target.classList.toggle('checked');
+
+  }
+
+}, false);
+
+  var li = document.createElement("li");
+
+  var inputValue = todo;
+
+  var t = document.createTextNode(inputValue);
+
+  li.appendChild(t);
+
+ document.getElementById("bdy").appendChild(li);
+
+     document.getElementById("by").hidden=true;
+
+  var span = document.createElement("SPAN");
+
+  var txt = document.createTextNode("close");
+
+  span.className = "material-icons close";
+
+  span.appendChild(txt);
+
+  li.appendChild(span);
+
+var close = document.getElementsByClassName("close");
+
+var i;
+
+  for (i = 0; i < close.length; i++) {
+
+    close[i].onclick = function() {
+
+      var div = this.parentElement;
+
+      div.style.display = "none";
+
+    }
+
+  }
+
+           
+
+            
+
+       }
+
+       else{
+
+           alert("no data available")
+
+       }
+
+       }
+
+       }
+
+       else{
+
+           alert("there is an update please sign up again to update your webapp.")
+
+       }
+
+       }
+
+  save.addEventListener("click", AddDocument_CustomID );
+
+  add.addEventListener("click", AddDocument_AutoID
+
+  );
+
+  feed.addEventListener("click", function(){
+
+      var cfm =confirm("tell me how to improve");
+
+      if(cfm){
+
+document.getElementById("feedback_form").hidden=false;
+
+      }
+
+  });
+
+ 
+
+ feed_send.addEventListener("click",  AddDocumentCustomID );
+
+ check.addEventListener("click", GetADocument );
+
+document.getElementById("feed_close").addEventListener("click", function(){
+
+document.getElementById("feedback_form").hidden=true;
+
+ })
+
+</script>
+
+</html>
