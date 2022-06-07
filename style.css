@@ -485,6 +485,7 @@ span:active{
     bottom:0;
 
     border: solid;
+    overflow: hidden;
 
 }
 
